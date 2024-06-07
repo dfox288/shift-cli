@@ -4,6 +4,8 @@
 # It copies over the Composer files to
 # avoid any assumed references by Box.
 #
+# Usage: sh build.sh 0.3.0
+#
 # Assumes Box is installed globally.
 
 mv composer-dev.json composer.json
