@@ -3,18 +3,19 @@
 declare(strict_types=1);
 
 return [
-    'expose-global-functions' => false,
-    //    'exclude-functions' => ['app'],
+    'expose-global-functions' => true,
     'patchers' => [
         function (string $filePath, string $prefix, string $content): string {
+            // Remove from any `app` path strings
             if (\str_contains($content, $prefix . '\\app')) {
                 $content = \preg_replace(
-                    '/' . $prefix . '[\\\\]+app' . '/',
+                    '/' . $prefix . '\\\\+app' . '/',
                     'app',
                     $content
                 );
             }
 
+            // Remove from any common class references within Tasks
             if (\str_starts_with($filePath, 'src/Tasks/')) {
                 $content = \str_replace(
                     $prefix . '\\\\Illuminate\\\\',
@@ -48,6 +49,6 @@ return [
         'vendor/symfony/polyfill-intl-grapheme/bootstrap.php',
     ],
     'exclude-namespaces' => [
-        'Symfony\Polyfill\*',
+        'Symfony\\Polyfill\\*',
     ],
 ];
