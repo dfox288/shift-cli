@@ -21,7 +21,7 @@ class RulesArrays implements Task
         foreach ($this->findFiles() as $path) {
             $contents = \file_get_contents($path);
 
-            if (! \preg_match('/\s+extends\s+FormRequest\s/', $contents)) {
+            if (! \preg_match('/\s+extends\s+(FormRequest|Request)\s/', $contents) ) {
                 continue;
             }
 
